@@ -10,14 +10,16 @@ import AlbumLayoutComponent from './Components/AlbumLayoutComponent';
 export default function App() {
   const [theme,setTheme] = useState(checkTheme());
   const [customRange,setCustomRange] = useState(0);
+  const [albumsArray,setAlbumsArray] = useState([]);
 
   verifyAccessToken();
-
   return (
-    <div style = {mainStyle(theme)}>
+    <div 
+    id = "main-layout"
+    style = {mainStyle(theme)}>
       <TopBarComponent theme = {theme} setTheme = {setTheme}/>
-      <PreliminaryInputComponent theme = {theme} customRange = {customRange} setCustomRange = {setCustomRange}/>
-      <AlbumLayoutComponent theme = {theme} customRange = {customRange}/>
+      <PreliminaryInputComponent theme = {theme} customRange = {customRange} setCustomRange = {setCustomRange} setAlbumsArray = {setAlbumsArray}/>
+      <AlbumLayoutComponent theme = {theme} customRange = {customRange} albumsArray = {albumsArray}  setAlbumsArray = {setAlbumsArray}/>
     </div>
   )
 }

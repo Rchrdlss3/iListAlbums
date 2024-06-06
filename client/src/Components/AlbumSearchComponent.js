@@ -1,9 +1,19 @@
 import { useState } from "react";
 import { spotifyAlbumSearch } from "../Functions/SpotifyCalls";
 import { albumResultsStyle, dialogBackgroundStyle, inputAlbumStyle } from "../Styles/StyleFunctions";
+import {extractColors} from 'extract-colors';
 
-export default function AlbumSearchComponent ({album,setAlbum,openSearch,setOpenSearch}) {
+async function getBackgroundColor (url) {
+    try {
+        return extractColors(url,{
+            crossOrigin: "anonymous"
+        })
+    } catch (e) {
+        console.log(e)
+    }
+}
 
+export default function AlbumSearchComponent ({specifcAlbum,albumsArray,setAlbumsArray,openSearch,setOpenSearch}) {
     const [albumSearch,setAlbumSearch] = useState("");
     const [albumsResult,setAlbumsResult] = useState({
         albums : {
@@ -54,11 +64,26 @@ export default function AlbumSearchComponent ({album,setAlbum,openSearch,setOpen
                             padding: '5px',
                             borderRadius: '5px'
                         }}
-                        onClick = {() => setAlbum({
-                            title: album.name,
-                            artist: album.artists[0].name,
-                            image: album.images[0].url
-                        })}
+                        onClick = {() => {     
+                            const arrayCopy = albumsArray;
+                            const specificIndex = specifcAlbum.place-1;
+                            getBackgroundColor(album.images[0].url)
+                            .then((finalColor) => {
+                                arrayCopy[specificIndex] = {
+                                    ...arrayCopy[specificIndex],
+                                    title: album.name,
+                                    artist: album.artists[0].name,
+                                    image: album.images[0].url,
+                                    backgroundColor: finalColor[0].hex
+                                }
+                                // arrayCopy[specificIndex] = {
+                                //     ...arrayCopy[specificIndex],
+                                //     backgroundColor: finalColor[0].hex
+                                // }
+                                setAlbumsArray([...arrayCopy])      
+                            })
+                            // setAlbumsArray([...arrayCopy])                    
+                    }}
                         >
                             <img style = {{
                             width: '100px',

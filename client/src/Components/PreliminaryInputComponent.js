@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { AlbumClass } from "../Helper/AlbumHelper";
+import { createAlbumCardArray } from "../Helper/AlbumHelper";
 
-export default function PreliminaryInputComponent({theme,customRange,setCustomRange}) {
+
+export default function PreliminaryInputComponent({theme,customRange,setCustomRange,setAlbumsArray}) {
     const [inputText,setInputText] = useState(0);
     const [display,showDisplay] = useState(customRange<=0)
 
@@ -20,7 +23,7 @@ export default function PreliminaryInputComponent({theme,customRange,setCustomRa
             alignItems: 'center'
         }}>
             <h1>Enter any number from 0-100</h1>
-            <input type = "number" onChange = {(e) => setInputText(e.target.value)} > 
+            <input key = "number-input" type = "number" onChange = {(e) => setInputText(e.target.value)} > 
             </input>
             <select onChange = {(e) => setInputText(e.target.value)}>
                 {numberOptions()}
@@ -35,6 +38,7 @@ export default function PreliminaryInputComponent({theme,customRange,setCustomRa
             onClick = {(e) => {
                 setCustomRange(inputText)
                 showDisplay(inputText<=0)
+                setAlbumsArray(createAlbumCardArray(inputText))
                 }}>Click to Begin</button>
         </div>
     )

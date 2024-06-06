@@ -1,5 +1,3 @@
-import { NoToneMapping } from "three"
-
 export const mainStyle = (theme) => {
     return {
         backgroundColor: theme.background,
@@ -9,29 +7,32 @@ export const mainStyle = (theme) => {
         padding: 0,
         margin: 0,
         justifyContent: 'center',
-        textAlign: 'center'
+        textAlign: 'center',
+        overflow: 'hidden'
     }
 }
 
 export const albumLayoutStyle = () => {
     return {
-        width: '100%',
+        width: '100vw',
         height: '100vh',
         display: 'flex',
-
-        alignItem: 'center',
-        overflowX: 'scroll'
+        alignItems: 'center',
+        position: 'relative',
+        transition: '2s',
+        marginLeft: '40%'
     }
 }
 
 export const albumImageStyle = () => {
     return {
-        width: '300px',
-        height: '300px',
+        width: (window.innerHeight/2),
+        height: (window.innerHeight/2),
         fontSize: '96px',
         borderRadius: '10px',
         transform: 'skew(0,15deg)',
-        margin: '25px'
+        margin: '25px',
+        boxShadow: '10px 10px 10px 5px rgba(0,0,0,0.3)'
     }
 }
 
@@ -40,7 +41,7 @@ export const buttonStyle = (theme) => {
         background : 'none',
         border: 'none',
         color: '#fff',
-        margin: '25px'
+        margin: '25px',
     }
 }
 
@@ -72,5 +73,15 @@ export const albumResultsStyle = () => {
     return {
         height: '300px',
         overflowY: 'scroll'
+    }
+}
+
+export const albumHeaderStyle = () => {
+    return {
+        background: 'linear-gradient(to bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%)',
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: 'transparent',
+        fontSize: '92px',
+        margin: 0
     }
 }
