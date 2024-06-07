@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/iListAlbums/static/css/main.2aa43954.css",
-    "main.js": "/iListAlbums/static/js/main.ea37f7c6.js",
+    "main.js": "/iListAlbums/static/js/main.17bbc5e6.js",
     "index.html": "/iListAlbums/index.html",
     "main.2aa43954.css.map": "/iListAlbums/static/css/main.2aa43954.css.map",
-    "main.ea37f7c6.js.map": "/iListAlbums/static/js/main.ea37f7c6.js.map"
+    "main.17bbc5e6.js.map": "/iListAlbums/static/js/main.17bbc5e6.js.map"
   },
   "entrypoints": [
     "static/css/main.2aa43954.css",
-    "static/js/main.ea37f7c6.js"
+    "static/js/main.17bbc5e6.js"
   ]
 }
