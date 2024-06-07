@@ -14,7 +14,7 @@ async function getBackgroundColor (url) {
     }
 }
 
-export default function AlbumSearchComponent ({specifcAlbum,albumsArray,setAlbumsArray,openSearch,setOpenSearch}) {
+export default function AlbumSearchComponent ({specifcAlbum,albumsArray,setAlbumsArray,openSearch,setOpenSearch,theme,isMobile}) {
     const [albumSearch,setAlbumSearch] = useState("");
     const [albumsResult,setAlbumsResult] = useState(albumResultsData);
 
@@ -22,16 +22,17 @@ export default function AlbumSearchComponent ({specifcAlbum,albumsArray,setAlbum
         <div style = {{
             display: openSearch ? 'block' : 'none',
             position: 'absolute',
+            margin: 'auto',
             top: 0,
             right: 0,
             left: 0,
             zIndex: 1
             }}>
-            <div style = {dialogBackgroundStyle()}>
-                <div style = {inputAlbumStyle()}>
+            <div style = {dialogBackgroundStyle(theme)}>
+                <div style = {inputAlbumStyle(theme,isMobile)}>
                     <input 
                     value = {albumSearch}
-                    style = {inputSearchField()}
+                    style = {inputSearchField(theme)}
                     placeholder= "Search for an album..." 
                     onChange = {(e) => setAlbumSearch(e.target.value)}
                     onKeyDown = {
@@ -48,7 +49,7 @@ export default function AlbumSearchComponent ({specifcAlbum,albumsArray,setAlbum
                     <br />
                 <div style = {albumResultsStyle()}>
                     {albumsResult.albums.items.map((album,idx) => {
-                        return <div style = {albumRowStyle(idx)}
+                        return <div style = {albumRowStyle(idx,theme)}
                         onClick = {() => {     
                             const arrayCopy = albumsArray;
                             const specificIndex = specifcAlbum.place-1;
@@ -91,13 +92,13 @@ export default function AlbumSearchComponent ({specifcAlbum,albumsArray,setAlbum
                     margin: '10px'
                     }}>
                 <button 
-                style = {albumSearchButton()}
+                style = {albumSearchButton(theme)}
                 onClick = {() =>                                 
                                 spotifyAlbumSearch(albumSearch)
                                 .then(res => res.json())
                                 .then(data => setAlbumsResult(data))}>Search</button>
                 <button 
-                style = {albumSearchButton()}
+                style = {albumSearchButton(theme)}
                 onClick = {() => {
                                     setAlbumSearch("")
                                     setAlbumsResult(albumResultsData)

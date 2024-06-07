@@ -2,7 +2,7 @@ import { React, useState, Component } from "react";
 import { albumHeaderStyle, albumImageStyle } from "../Styles/StyleFunctions";
 
 
-export default function AlbumComponent ({theme,album,albumId,currAlbum,albumsArray,setOpenSearch,setSpecifiedAlbum}) {
+export default function AlbumComponent ({theme,album,albumId,currAlbum,albumsArray,setOpenSearch,setSpecifiedAlbum,isMobile}) {
     return album.title ? 
      (   
             <div 
@@ -18,14 +18,13 @@ export default function AlbumComponent ({theme,album,albumId,currAlbum,albumsArr
                 >{album.place}</h1>
             <img 
             src = {album.image}
-            style = {albumImageStyle()}
+            style = {albumImageStyle(false,theme,isMobile)}
             onClick = {() => setOpenSearch(true)}
             >
             </img>
             <h3>{album.title}</h3>
             <div style = {{ 
-                color: `${theme.font.regular}50`,
-                color: '#00000050'
+                color: `${theme.font.regular}80`
             }}>{album.artist}</div>
             </div>
             ) : (
@@ -41,7 +40,7 @@ export default function AlbumComponent ({theme,album,albumId,currAlbum,albumsArr
                     <h1 style = {albumHeaderStyle()}>{album.place}</h1>
                     <img 
                     src = "https://rchrdlss3.github.io/iListAlbumsAPI/lightSearchLogo.png"
-                    style = {albumImageStyle(true)}
+                    style = {albumImageStyle(true,theme,isMobile)}
                     onClick = {() => {
                         setSpecifiedAlbum(album)
                         setOpenSearch(true)

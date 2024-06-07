@@ -19,7 +19,7 @@ export const lightTheme = new Theme (
     "#fafafa",
     "#e4e5f1",
     "#d2d3db",
-    "#484b6a",
+    "#cccccc",
     "(0,0,0,0.05)",
     new Font("#111111","#9E9EFF")
 )

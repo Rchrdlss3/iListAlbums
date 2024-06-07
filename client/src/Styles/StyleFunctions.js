@@ -1,6 +1,6 @@
 import { darkTheme, lightTheme } from "./Themes"
 
-export const mainStyle = (theme) => {
+export const mainStyle = (theme,isMobile) => {
     return {
         backgroundColor: theme.background,
         color: theme.font.regular,
@@ -23,20 +23,22 @@ export const albumLayoutStyle = () => {
         scrollSnapAlign: 'center'
     }
 }
-export const albumContainer = () => {
+export const albumContainer = (isMobile) => {
+    let tilt = isMobile ? 0 : 90
     return {
-        overflowX: 'scroll',
+        overflowX: isMobile ? 'hidden' : 'scroll',
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: isMobile ? 'column' : 'row',
         width: '80%',
         margin: 'auto',
-        overflowY: 'hidden',
+        overflowY: isMobile ? 'scroll':'hidden',
         height: 'inherit',
-        maskImage: 'linear-gradient(90deg, transparent , #000 15%, #000 85%, transparent 100%)'
+        width: '100%',
+        maskImage: `linear-gradient(${tilt}deg, transparent , #000 15%, #000 85%, transparent 100%)`
       }
 }
-export const albumRowStyle = (idx) => {
-    let oddRow = 'rgba(100,100,100,0.5)';
+export const albumRowStyle = (idx,theme) => {
+    let oddRow = theme.secondary;
     return {
         display: 'flex',
         flexDirection: 'row',
@@ -44,14 +46,15 @@ export const albumRowStyle = (idx) => {
         margin: '5px',
         padding: '5px',
         borderRadius: '5px',
-        color: '#ccc'
+        color: theme.font.regular
     }
 }
 
-export const albumImageStyle = (emptied) => {
+export const albumImageStyle = (emptied,theme,isMobile) => {
+    let size = isMobile ? 4 : 2
     return {
-        width: (window.innerHeight/2),
-        height: (window.innerHeight/2),
+        width: (window.innerHeight/size),
+        height: (window.innerHeight/size),
         fontSize: '96px',
         borderRadius: '10px',
         margin: '25px',
@@ -75,46 +78,48 @@ export const buttonStyle = (isLeft,theme) => {
         }
 }
 
-export const dialogBackgroundStyle = () => {
+export const dialogBackgroundStyle = (theme) => {
     return {
         width: '100vw',
         height: '100vh',
         position: 'fixed',
+        display: 'flex',
+        justifyContent: 'center',
         backgroundColor: 'rgba(0,0,0,0.8)'
     }
 }
 
-export const inputAlbumStyle = () => {
+export const inputAlbumStyle = (theme,isMobile) => {
     return {
         display: 'flex',
         flexDirection: 'column',
         margin: 'auto',
-        width: '500px',
-        height: '700px',
+        width: isMobile ? '100vw' : '70vh',
+        height: '70vh',
         justifyContent: 'center',
         borderRadius: '10px',
-        backgroundColor: 'rgba(0,0,0)',
+        backgroundColor: theme.background,
         marginTop: '5%'
     }
 }
-export const albumSearchButton = () => {
+export const albumSearchButton = (theme) => {
     return {
         width: '100px',
         height: '30px',
         textAlign: 'center',
         justifyContent: 'center',
-        color: '#ccc',
-        backgroundColor: 'rgba(200,200,200,0.1)',
+        color: theme.font.regular,
+        backgroundColor: `${theme.primary}80`,
         border: 'none',
         borderRadius: '5px'
     }
 }
-export const inputSearchField = (width,border) => {
+export const inputSearchField = (theme,width) => {
     return {
-        backgroundColor: 'rgba(255,255,255,0.1)',
-        color: '#ccc',
-        border: border ? '1px solid #00000050' : 'none',
-        padding: '5px',
+        backgroundColor: `${theme.primary}50`,
+        color: theme.font.regular,
+        border: 'none',
+        padding: '7px',
         borderRadius: '5px',
         width: width? width : '50%',
         margin: 'auto',
@@ -123,12 +128,13 @@ export const inputSearchField = (width,border) => {
     }
 }
 
-export const selectStyle = () => {
+export const selectStyle = (theme) => {
     return {
         margin : '5px',
-        background: 'none',
-        border: '1px solid #00000050',
-        borderRadius: '5px'
+        background: theme.transparent,
+        border: 'none',
+        borderRadius: '5px',
+        color: `${theme.font.regular}50`
     }
 }
 

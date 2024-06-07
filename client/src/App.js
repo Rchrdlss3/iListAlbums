@@ -16,13 +16,14 @@ export default function App() {
   const [isMobile,setIsMobile] = useState(device.type == 'mobile');
 
   verifyAccessToken();
+
   return (
     <div 
     id = "main-layout"
     style = {mainStyle(theme,isMobile)}>
       <TopBarComponent theme = {theme} setTheme = {setTheme} customRange = {customRange}/>
-      <PreliminaryInputComponent theme = {theme} customRange = {customRange} setCustomRange = {setCustomRange} setAlbumsArray = {setAlbumsArray}/>
-      <AlbumLayoutComponent theme = {theme} setTheme = {setTheme} customRange = {customRange} albumsArray = {albumsArray}  setAlbumsArray = {setAlbumsArray}/>
+      <PreliminaryInputComponent theme = {theme} isMobille = {isMobile} customRange = {customRange} setCustomRange = {setCustomRange} setAlbumsArray = {setAlbumsArray}/>
+      <AlbumLayoutComponent theme = {theme} setTheme = {setTheme} isMobile = {isMobile} customRange = {customRange} albumsArray = {albumsArray}  setAlbumsArray = {setAlbumsArray}/>
     </div>
   )
 }

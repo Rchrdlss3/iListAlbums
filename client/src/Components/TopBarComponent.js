@@ -14,7 +14,6 @@ export default function TopBarComponent({theme,setTheme,customRange}) {
             flexDirection: 'row',
             width: '100%',
             alignItems: 'center',
-            marginTop: '5px',
             gap: 5
             }}>
             <img 
@@ -26,7 +25,12 @@ export default function TopBarComponent({theme,setTheme,customRange}) {
             alt = "Innovative Rich Logo"
             src = {logoImage}/> 
   
-            {customRange > 0 ? <h2 style = {{width: '100%'}}> {`iList My Top ${customRange}`} Albums</h2> : null}
+            {customRange > 0 ? <h2 style = {{
+                width: '100%',
+                margin: '0px',
+                padding: '0px',
+                transition: '2s'
+                }}> {`iList My Top ${customRange}`} Albums</h2> : null}
         </div>
     )
 }

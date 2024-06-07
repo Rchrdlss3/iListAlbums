@@ -10,7 +10,7 @@ export class AlbumClass {
     }
 }
 
-export function createAlbumCardArray (numberOfAlbums) {
+export function createAlbumCardArray (numberOfAlbums,isMobile) {
     let albumCardArray = [];
     let tx = -(window.innerWidth/100)*2;
     for (let i = 1; i <= numberOfAlbums; i++) {
@@ -19,7 +19,7 @@ export function createAlbumCardArray (numberOfAlbums) {
         if (i == 1) {
             newAlbum.matrix = FOCUSED_MATRIX
         } else {
-            newAlbum.matrix = `1,0,0,1,${tx},0`
+            newAlbum.matrix = isMobile ? `1,0,0,1,0,0` :`1,0,0,1,${tx},0`
             tx = tx-400;
         }
         albumCardArray.push(newAlbum)
@@ -48,7 +48,7 @@ export const handleButtonClick = (albumsArray,currAlbumNumber) => {
     return albumsArray
 }
 
-export const handleScroll = (scrollPosition,albumsArray) => {
-    const scrollWidth = document.getElementById(`album-container`).offsetWidth/2
-    return Math.round(scrollPosition/scrollWidth)+1
+export const handleScroll = (scrollPosition,albumsArray,isMobile) => {
+    const scroll = isMobile ? document.getElementById(`album-container`).offsetHeight/2 :document.getElementById(`album-container`).offsetWidth/2
+    return Math.round(scrollPosition/scroll)+1
 }

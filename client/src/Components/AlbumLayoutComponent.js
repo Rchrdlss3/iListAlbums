@@ -7,7 +7,7 @@ import AlbumSearchComponent from './AlbumSearchComponent';
 import { AlbumClass, handleScroll,handleButtonClick } from '../Helper/AlbumHelper';
 import { checkHexCode } from '../Styles/StyleFunctions';
 
-export default function AlbumLayoutComponent({theme,setTheme,albumsArray,setAlbumsArray}) {
+export default function AlbumLayoutComponent({theme,setTheme,isMobile,albumsArray,setAlbumsArray}) {
     const [currentAlbumNumber,setCurrentAlbumNumber] = useState(1);
     const [openSearch,setOpenSearch] = useState(false);
     const [specifiedAlbum,setSpecifiedAlbum] = useState(new AlbumClass())
@@ -21,30 +21,31 @@ export default function AlbumLayoutComponent({theme,setTheme,albumsArray,setAlbu
         mainLayout.style.backgroundColor = backgroundColor ? backgroundColor : theme.background
         mainLayout.style.transition = 'linear background-color 1s'
         backgroundColor ? setTheme(checkHexCode(backgroundColor)) : null
+        isMobile ? document.getElementsByName("theme-color")[0].setAttribute("content",backgroundColor) : null
       } else {
         mainLayout.style.backgroundColor = theme.background
       }
     },[currentAlbumNumber,albumsArray])
 
-  return (
+  return albumsArray.length > 0 ? (
       <div id = 'album-layout'>
-        <ButtonComponent 
+        {!isMobile ? <ButtonComponent 
         currentAlbumNumber = {currentAlbumNumber} 
         setCurrentAlbumNumber = {setCurrentAlbumNumber} 
         albumsArray = {albumsArray} 
         setAlbumsArray = {setAlbumsArray}
         theme = {theme}
-        />
+        /> : null}
         <div className = "album-layout-wrapper"  style = {albumLayoutStyle()}>
           <div id = 'album-container' 
                 onScrollCapture= {
                   () => {
-                      const scrollPosition = document.getElementById('album-container').scrollLeft
-                      setCurrentAlbumNumber(handleScroll(scrollPosition,albumsArray))
+                      const scrollPosition = isMobile ? document.getElementById('album-container').scrollTop : document.getElementById('album-container').scrollLeft
+                      setCurrentAlbumNumber(handleScroll(scrollPosition,albumsArray,isMobile))
                       setAlbumsArray(handleButtonClick(albumsArray,currentAlbumNumber))
                 }}
-          style = {albumContainer()}>
-        {albumsArray.length > 0 ?  albumsArray.map((album,idx) => {
+          style = {albumContainer(isMobile)}>
+        {albumsArray.map((album,idx) => {
           let albumId = `album-${idx+1}`;
             return <AlbumComponent 
             index = {idx}
@@ -57,8 +58,9 @@ export default function AlbumLayoutComponent({theme,setTheme,albumsArray,setAlbu
             setAlbumsArray = {setAlbumsArray}
             setOpenSearch = {setOpenSearch}
             setSpecifiedAlbum = {setSpecifiedAlbum}
+            isMobile = {isMobile}
             />
-        })  : null}
+        })}
         </div>
     </div>
     <AlbumSearchComponent 
@@ -67,6 +69,8 @@ export default function AlbumLayoutComponent({theme,setTheme,albumsArray,setAlbu
       setAlbumsArray = {setAlbumsArray}
       openSearch = {openSearch} 
       setOpenSearch = {setOpenSearch} 
+      theme = {theme}
+      isMobile = {isMobile}
   />
     </div>
-  )}
+  ) : null}

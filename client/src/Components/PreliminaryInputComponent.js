@@ -4,7 +4,7 @@ import { validatePreliminaryValue } from "../Helper/HelperFunctions";
 import {buttonStyle, inputSearchField, selectStyle} from "../Styles/StyleFunctions";
 
 
-export default function PreliminaryInputComponent({theme,customRange,setCustomRange,setAlbumsArray}) {
+export default function PreliminaryInputComponent({theme,isMobile,customRange,setCustomRange,setAlbumsArray}) {
     const [inputText,setInputText] = useState(0);
     const [display,showDisplay] = useState(customRange<=0)
 
@@ -23,18 +23,20 @@ export default function PreliminaryInputComponent({theme,customRange,setCustomRa
             flexDirection: 'column',
             alignItems: 'center'
         }}>
-            <h1>Enter any number from 0-100</h1>
+            <h1 style = {{
+                color: `${theme.font.regular}90`
+            }}>Enter Any Number From 0-100</h1>
             <input 
             key = "number-input" 
             type = "number" 
-            style = {inputSearchField('25%',true)}
+            style = {inputSearchField(theme,'25%')}
             onChange = {(e) => {
                 const value = e.target.value
                 setInputText(value)
                 }} > 
             </input>
             <select 
-            style = {selectStyle()}
+            style = {selectStyle(theme)}
             onChange = {(e) => {
                 const value = e.target.value
                 setInputText(value)
@@ -43,17 +45,18 @@ export default function PreliminaryInputComponent({theme,customRange,setCustomRa
             </select>
             <button 
             style = {{
-                background: 'none',
-                border: '1px solid #00000050',
+                background: `${theme.transparent}`,
+                border: 'none',
+                color: `${theme.font.regular}50`,
                 borderRadius: '5px',
                 margin: '5px',
-                height: '25px', 
+                padding: '7px'
             }} 
             onClick = {(e) => {
                 if(validatePreliminaryValue(inputText) == true) {
                     setCustomRange(inputText)
                     showDisplay(inputText<=0)
-                    setAlbumsArray(createAlbumCardArray(inputText))
+                    setAlbumsArray(createAlbumCardArray(inputText,isMobile))
                 } else {
                     console.log('Invalid input value')
                 }
