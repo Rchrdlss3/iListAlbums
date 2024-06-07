@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/rchrdlss3.github.io/iListAlbums/static/css/main.2aa43954.css",
+    "main.js": "/rchrdlss3.github.io/iListAlbums/static/js/main.ea37f7c6.js",
+    "index.html": "/rchrdlss3.github.io/iListAlbums/index.html",
+    "main.2aa43954.css.map": "/rchrdlss3.github.io/iListAlbums/static/css/main.2aa43954.css.map",
+    "main.ea37f7c6.js.map": "/rchrdlss3.github.io/iListAlbums/static/js/main.ea37f7c6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2aa43954.css",
+    "static/js/main.ea37f7c6.js"
+  ]
+}
