@@ -1,26 +1,28 @@
-import React, { createRef, useEffect } from 'react'
-import { albumLayoutStyle, buttonStyle } from '../Styles/StyleFunctions'
+import React, { useEffect } from 'react'
+import { albumContainer, albumLayoutStyle } from '../Styles/StyleFunctions'
 import AlbumComponent from './AlbumComponent'
 import { useState } from 'react';
-import { AlbumClass } from '../Helper/AlbumHelper';
 import ButtonComponent from './ButtonComponent';
-
+import AlbumSearchComponent from './AlbumSearchComponent';
+import { AlbumClass } from '../Helper/AlbumHelper';
 
 export default function AlbumLayoutComponent({theme,albumsArray,setAlbumsArray}) {
     const [currentAlbumNumber,setCurrentAlbumNumber] = useState(1);
+    const [openSearch,setOpenSearch] = useState(false);
+    const [specifiedAlbum,setSpecifiedAlbum] = useState(new AlbumClass())
 
     useEffect(() => {
+      console.log('changed')
       let mainLayout = document.getElementById('main-layout')
       if (albumsArray[currentAlbumNumber-1]) {
-        // const currAlbum = document.getElementById(`album-${currentAlbumNumber}`);
-        // currAlbum.style.transform = `matrix(1,0,0,1,0,0)`
-        mainLayout.style.backgroundColor = albumsArray[currentAlbumNumber-1].backgroundColor
+        const currAlbum = document.getElementById(`album-${currentAlbumNumber}`);
+        currAlbum.style.transform = `matrix(1,0,0,1,0,0) skew (0,0)`
+        mainLayout.style.backgroundColor = albumsArray[currentAlbumNumber-1].backgroundColor ? albumsArray[currentAlbumNumber-1].backgroundColor : theme.background
         mainLayout.style.transition = 'linear background-color 1s'
       } else {
         mainLayout.style.backgroundColor = theme.background
       }
-    },[currentAlbumNumber]
-    )
+    },[currentAlbumNumber,albumsArray])
   return (
       <div>
         <ButtonComponent 
@@ -30,6 +32,7 @@ export default function AlbumLayoutComponent({theme,albumsArray,setAlbumsArray})
         setAlbumsArray = {setAlbumsArray}
         />
         <div className = "album-layout-wrapper"  style = {albumLayoutStyle()}>
+          <div id = 'album-container'style = {albumContainer()}>
         {albumsArray.length > 0 ?  albumsArray.map((album,idx) => {
           let albumId = `album-${idx+1}`;
             return <AlbumComponent 
@@ -37,13 +40,22 @@ export default function AlbumLayoutComponent({theme,albumsArray,setAlbumsArray})
             album = {album}
             albumId = {albumId} 
             place = {idx+1} 
-            currAlbum = {currentAlbumNumber} 
+            currAlbum = {currentAlbumNumber == idx+1} 
             theme = {theme}
             albumsArray = {albumsArray}
             setAlbumsArray = {setAlbumsArray}
+            setOpenSearch = {setOpenSearch}
+            setSpecifiedAlbum = {setSpecifiedAlbum}
             />
         })  : null}
+        </div>
     </div>
+    <AlbumSearchComponent 
+      specifcAlbum = {specifiedAlbum} 
+      albumsArray = {albumsArray}
+      setAlbumsArray = {setAlbumsArray}
+      openSearch = {openSearch} 
+      setOpenSearch = {setOpenSearch} 
+  />
     </div>
-  )
-}
+  )}

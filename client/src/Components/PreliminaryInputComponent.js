@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { AlbumClass } from "../Helper/AlbumHelper";
 import { createAlbumCardArray } from "../Helper/AlbumHelper";
 
 

@@ -17,7 +17,7 @@ export default function App() {
     <div 
     id = "main-layout"
     style = {mainStyle(theme)}>
-      <TopBarComponent theme = {theme} setTheme = {setTheme}/>
+      <TopBarComponent theme = {theme} setTheme = {setTheme} customRange = {customRange}/>
       <PreliminaryInputComponent theme = {theme} customRange = {customRange} setCustomRange = {setCustomRange} setAlbumsArray = {setAlbumsArray}/>
       <AlbumLayoutComponent theme = {theme} customRange = {customRange} albumsArray = {albumsArray}  setAlbumsArray = {setAlbumsArray}/>
     </div>

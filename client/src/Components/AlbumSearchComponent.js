@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { spotifyAlbumSearch } from "../Functions/SpotifyCalls";
-import { albumResultsStyle, dialogBackgroundStyle, inputAlbumStyle } from "../Styles/StyleFunctions";
+import { albumResultsStyle, albumRowStyle, albumSearchButton, dialogBackgroundStyle, inputAlbumStyle, inputSearchField } from "../Styles/StyleFunctions";
 import {extractColors} from 'extract-colors';
+import { albumResultsData } from "../Helper/HelperFunctions";
 
 async function getBackgroundColor (url) {
     try {
@@ -13,23 +14,12 @@ async function getBackgroundColor (url) {
     }
 }
 
+const clearFields = () => {
+
+}
 export default function AlbumSearchComponent ({specifcAlbum,albumsArray,setAlbumsArray,openSearch,setOpenSearch}) {
     const [albumSearch,setAlbumSearch] = useState("");
-    const [albumsResult,setAlbumsResult] = useState({
-        albums : {
-            items: [
-                {
-                artists: [{
-                    name: ""
-                }
-            ],
-            images: [{
-                url: ""
-            }],
-            name: ""
-            }]
-        }
-    });
+    const [albumsResult,setAlbumsResult] = useState(albumResultsData);
 
     return (
         <div style = {{
@@ -42,7 +32,8 @@ export default function AlbumSearchComponent ({specifcAlbum,albumsArray,setAlbum
             }}>
             <div style = {dialogBackgroundStyle()}>
                 <div style = {inputAlbumStyle()}>
-                    <input placeholder="Search for an album..." onKeyDown = {
+                    <input style = {inputSearchField()} placeholder= "Search for an album..." 
+                    onKeyDown = {
                         (e) => 
                         {
                             setAlbumSearch(e.target.value);
@@ -56,14 +47,7 @@ export default function AlbumSearchComponent ({specifcAlbum,albumsArray,setAlbum
                     <br />
                 <div style = {albumResultsStyle()}>
                     {albumsResult.albums.items.map((album,idx) => {
-                        return <div style = {{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            backgroundColor: idx%2 == 0 ? 'red' : 'blue',
-                            margin: '5px',
-                            padding: '5px',
-                            borderRadius: '5px'
-                        }}
+                        return <div style = {albumRowStyle(idx)}
                         onClick = {() => {     
                             const arrayCopy = albumsArray;
                             const specificIndex = specifcAlbum.place-1;
@@ -76,19 +60,19 @@ export default function AlbumSearchComponent ({specifcAlbum,albumsArray,setAlbum
                                     image: album.images[0].url,
                                     backgroundColor: finalColor[0].hex
                                 }
-                                // arrayCopy[specificIndex] = {
-                                //     ...arrayCopy[specificIndex],
-                                //     backgroundColor: finalColor[0].hex
-                                // }
                                 setAlbumsArray([...arrayCopy])      
-                            })
-                            // setAlbumsArray([...arrayCopy])                    
-                    }}
+                            })  
+                            setAlbumSearch("")
+                            setAlbumsResult(albumResultsData)           
+                            setOpenSearch(false)
+                        }}
                         >
+                            {album.images[0].url ? 
                             <img style = {{
                             width: '100px',
                             height: '100px'
-                            }} src = {album.images[0].url}/>
+                            }} src = {album.images[0].url}/> : null
+                        }
                             <div style = {{
                                 flexDirection : 'column',
                                 marginLeft: '10px'
@@ -99,12 +83,29 @@ export default function AlbumSearchComponent ({specifcAlbum,albumsArray,setAlbum
                         </div>
                     })}
                 </div>
-                <button onClick = {() =>                                 
+                <div style = {{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    gap: 5,
+                    margin: '10px'
+                    }}>
+                <button 
+                style = {albumSearchButton()}
+                onClick = {() =>                                 
                                 spotifyAlbumSearch(albumSearch)
                                 .then(res => res.json())
-                                .then(data => setAlbumsResult(data))}>Search</button><button onClick = {() => setOpenSearch(false)}>
+                                .then(data => setAlbumsResult(data))}>Search</button>
+                <button 
+                style = {albumSearchButton()}
+                onClick = {() => {
+                                    setAlbumSearch("")
+                                    setAlbumsResult(albumResultsData)
+                                    setOpenSearch(false)
+                }}>
                 Close
                 </button>  
+                </div>
+
                 </div>
             </div>
         </div>
