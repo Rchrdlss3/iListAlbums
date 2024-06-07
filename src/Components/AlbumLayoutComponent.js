@@ -20,8 +20,12 @@ export default function AlbumLayoutComponent({theme,setTheme,isMobile,albumsArra
         currAlbum.style.transform = `matrix(1,0,0,1,0,0) skew (0,0)`
         mainLayout.style.backgroundColor = backgroundColor ? backgroundColor : theme.background
         mainLayout.style.transition = 'linear background-color 1s'
-        backgroundColor ? setTheme(checkHexCode(backgroundColor)) : null
-        isMobile ? document.getElementsByName("theme-color")[0].setAttribute("content",backgroundColor) : null
+        if (backgroundColor) {
+          setTheme(checkHexCode(backgroundColor))
+          document.getElementsByName("theme-color")[0].setAttribute("content",backgroundColor)
+        } else {
+          document.getElementsByName("theme-color")[0].setAttribute("content",theme.background)
+        }
       } else {
         mainLayout.style.backgroundColor = theme.background
       }

@@ -134,7 +134,7 @@ export const selectStyle = (theme) => {
         background: theme.transparent,
         border: 'none',
         borderRadius: '5px',
-        color: `${theme.font.regular}50`
+        color: `${theme.font.regular}`
     }
 }
 

@@ -24,8 +24,9 @@ export default function PreliminaryInputComponent({theme,isMobile,customRange,se
             alignItems: 'center'
         }}>
             <h1 style = {{
-                color: `${theme.font.regular}90`
-            }}>Enter Any Number From 0-100</h1>
+                color: `${theme.font.regular}90`,
+                fontSize: '4em'
+            }}>Enter Any Number From 1-100</h1>
             <input 
             key = "number-input" 
             type = "number" 
@@ -47,7 +48,7 @@ export default function PreliminaryInputComponent({theme,isMobile,customRange,se
             style = {{
                 background: `${theme.transparent}`,
                 border: 'none',
-                color: `${theme.font.regular}50`,
+                color: `${theme.font.regular}`,
                 borderRadius: '5px',
                 margin: '5px',
                 padding: '7px'
