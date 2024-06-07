@@ -4,7 +4,7 @@ import AlbumComponent from './AlbumComponent'
 import { useState } from 'react';
 import ButtonComponent from './ButtonComponent';
 import AlbumSearchComponent from './AlbumSearchComponent';
-import { AlbumClass } from '../Helper/AlbumHelper';
+import { AlbumClass, handleScroll,handleButtonClick } from '../Helper/AlbumHelper';
 import { checkHexCode } from '../Styles/StyleFunctions';
 
 export default function AlbumLayoutComponent({theme,setTheme,albumsArray,setAlbumsArray}) {
@@ -13,7 +13,6 @@ export default function AlbumLayoutComponent({theme,setTheme,albumsArray,setAlbu
     const [specifiedAlbum,setSpecifiedAlbum] = useState(new AlbumClass())
 
     useEffect(() => {
-      console.log('changed')
       let mainLayout = document.getElementById('main-layout')
       if (albumsArray[currentAlbumNumber-1]) {
         let backgroundColor = albumsArray[currentAlbumNumber-1].backgroundColor;
@@ -26,16 +25,25 @@ export default function AlbumLayoutComponent({theme,setTheme,albumsArray,setAlbu
         mainLayout.style.backgroundColor = theme.background
       }
     },[currentAlbumNumber,albumsArray])
+
   return (
-      <div>
+      <div id = 'album-layout'>
         <ButtonComponent 
         currentAlbumNumber = {currentAlbumNumber} 
         setCurrentAlbumNumber = {setCurrentAlbumNumber} 
         albumsArray = {albumsArray} 
         setAlbumsArray = {setAlbumsArray}
+        theme = {theme}
         />
         <div className = "album-layout-wrapper"  style = {albumLayoutStyle()}>
-          <div id = 'album-container'style = {albumContainer()}>
+          <div id = 'album-container' 
+                onScrollCapture= {
+                  () => {
+                      const scrollPosition = document.getElementById('album-container').scrollLeft
+                      setCurrentAlbumNumber(handleScroll(scrollPosition,albumsArray))
+                      setAlbumsArray(handleButtonClick(albumsArray,currentAlbumNumber))
+                }}
+          style = {albumContainer()}>
         {albumsArray.length > 0 ?  albumsArray.map((album,idx) => {
           let albumId = `album-${idx+1}`;
             return <AlbumComponent 

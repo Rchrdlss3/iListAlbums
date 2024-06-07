@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { checkTheme } from "../Helper/ThemeHelper";
-import { darkTheme,lightTheme } from "../Styles/Themes";
+import {lightTheme } from "../Styles/Themes";
 import { DARK_LOGO_IMAGE, LIGHT_LOGO_IMAGE } from "../Helper/ThemeHelper";
 
 export default function TopBarComponent({theme,setTheme,customRange}) {
@@ -12,8 +11,8 @@ export default function TopBarComponent({theme,setTheme,customRange}) {
     return (
         <div style = {{
             display: 'flex',
+            flexDirection: 'row',
             width: '100%',
-            justifyContent: 'center',
             alignItems: 'center',
             marginTop: '5px',
             gap: 5
@@ -22,11 +21,12 @@ export default function TopBarComponent({theme,setTheme,customRange}) {
             style = {{
                 width: '25px',
                 height: '25px',
-                verticalAlign: 'middle'
+                verticalAlign: 'middle',
             }}
-            src = {logoImage}></img>
-            {customRange > 0 ? <div> {`iList My Top ${customRange}`} Albums</div> : null}
-            <img src = ""></img>
+            alt = "Innovative Rich Logo"
+            src = {logoImage}/> 
+  
+            {customRange > 0 ? <h2 style = {{width: '100%'}}> {`iList My Top ${customRange}`} Albums</h2> : null}
         </div>
     )
 }

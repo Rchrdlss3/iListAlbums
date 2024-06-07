@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { spotifyAlbumSearch } from "../Functions/SpotifyCalls";
 import { albumResultsStyle, albumRowStyle, albumSearchButton, dialogBackgroundStyle, inputAlbumStyle, inputSearchField } from "../Styles/StyleFunctions";
 import {extractColors} from 'extract-colors';
@@ -14,9 +14,6 @@ async function getBackgroundColor (url) {
     }
 }
 
-const clearFields = () => {
-
-}
 export default function AlbumSearchComponent ({specifcAlbum,albumsArray,setAlbumsArray,openSearch,setOpenSearch}) {
     const [albumSearch,setAlbumSearch] = useState("");
     const [albumsResult,setAlbumsResult] = useState(albumResultsData);
@@ -32,7 +29,11 @@ export default function AlbumSearchComponent ({specifcAlbum,albumsArray,setAlbum
             }}>
             <div style = {dialogBackgroundStyle()}>
                 <div style = {inputAlbumStyle()}>
-                    <input style = {inputSearchField()} placeholder= "Search for an album..." 
+                    <input 
+                    value = {albumSearch}
+                    style = {inputSearchField()}
+                    placeholder= "Search for an album..." 
+                    onChange = {(e) => setAlbumSearch(e.target.value)}
                     onKeyDown = {
                         (e) => 
                         {

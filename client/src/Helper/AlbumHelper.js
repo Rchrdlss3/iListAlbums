@@ -27,7 +27,7 @@ export function createAlbumCardArray (numberOfAlbums) {
     return albumCardArray
 }
 
-export const handleScroll = (albumsArray,currAlbumNumber) => {
+export const handleButtonClick = (albumsArray,currAlbumNumber) => {
     for (let i = 0; i < albumsArray.length; i++) {
         const matrixValues = albumsArray[i].matrix.split(',')
         let place = albumsArray[i].place
@@ -46,4 +46,9 @@ export const handleScroll = (albumsArray,currAlbumNumber) => {
         }
     }
     return albumsArray
+}
+
+export const handleScroll = (scrollPosition,albumsArray) => {
+    const scrollWidth = document.getElementById(`album-container`).offsetWidth/2
+    return Math.round(scrollPosition/scrollWidth)+1
 }

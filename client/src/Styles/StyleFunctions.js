@@ -62,13 +62,13 @@ export const albumImageStyle = (emptied) => {
     }
 }
 
-export const buttonStyle = (isLeft) => {
+export const buttonStyle = (isLeft,theme) => {
     return {
-            background : 'rgba(255,255,255,0.2)',
+            background : theme.transparent,
             border: 'none',
             borderRadius: '50%',
             height: '25px', 
-            color: '#fff',
+            color: theme.tertiary,
             margin: '25px',
             right: isLeft? '90%' : null,
             left: isLeft ? null : '90%'
@@ -109,19 +109,29 @@ export const albumSearchButton = () => {
         borderRadius: '5px'
     }
 }
-export const inputSearchField = () => {
+export const inputSearchField = (width,border) => {
     return {
         backgroundColor: 'rgba(255,255,255,0.1)',
         color: '#ccc',
-        border: 'none',
+        border: border ? '1px solid #00000050' : 'none',
         padding: '5px',
         borderRadius: '5px',
-        width: '50%',
+        width: width? width : '50%',
         margin: 'auto',
         marginBottom: '0',
         marginTop: '0'
     }
 }
+
+export const selectStyle = () => {
+    return {
+        margin : '5px',
+        background: 'none',
+        border: '1px solid #00000050',
+        borderRadius: '5px'
+    }
+}
+
 export const albumResultsStyle = () => {
     return {
         height: '300px',
