@@ -1,3 +1,5 @@
+import { darkTheme, lightTheme } from "./Themes"
+
 export const mainStyle = (theme) => {
     return {
         backgroundColor: theme.background,
@@ -136,4 +138,17 @@ export const albumHeaderStyle = () => {
         fontSize: '92px',
         margin: 0
     }
+}
+
+export const checkHexCode = (hexCode) => {
+    // If the brightness value is greater than or equal to 128, the color is considered light.
+    let values = hexCode.split('')
+
+    for (let i = 1; i <= values.length; i+=2) {
+        let val = parseInt(values[i],16) * parseInt(values[i+1],16)
+        if (val>=128) {
+            return lightTheme
+        }
+    }
+    return darkTheme
 }

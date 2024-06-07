@@ -2,7 +2,7 @@ import { React, useState, Component } from "react";
 import { albumHeaderStyle, albumImageStyle } from "../Styles/StyleFunctions";
 
 
-export default function AlbumComponent ({album,albumId,currAlbum,albumsArray,setOpenSearch,setSpecifiedAlbum}) {
+export default function AlbumComponent ({theme,album,albumId,currAlbum,albumsArray,setOpenSearch,setSpecifiedAlbum}) {
     return album.title ? 
      (   
             <div 
@@ -24,6 +24,7 @@ export default function AlbumComponent ({album,albumId,currAlbum,albumsArray,set
             </img>
             <h3>{album.title}</h3>
             <div style = {{ 
+                color: `${theme.font.regular}50`,
                 color: '#00000050'
             }}>{album.artist}</div>
             </div>
@@ -42,7 +43,6 @@ export default function AlbumComponent ({album,albumId,currAlbum,albumsArray,set
                     src = "https://rchrdlss3.github.io/iListAlbumsAPI/lightSearchLogo.png"
                     style = {albumImageStyle(true)}
                     onClick = {() => {
-                        console.log(album)
                         setSpecifiedAlbum(album)
                         setOpenSearch(true)
                     }}

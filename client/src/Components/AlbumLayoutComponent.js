@@ -5,8 +5,9 @@ import { useState } from 'react';
 import ButtonComponent from './ButtonComponent';
 import AlbumSearchComponent from './AlbumSearchComponent';
 import { AlbumClass } from '../Helper/AlbumHelper';
+import { checkHexCode } from '../Styles/StyleFunctions';
 
-export default function AlbumLayoutComponent({theme,albumsArray,setAlbumsArray}) {
+export default function AlbumLayoutComponent({theme,setTheme,albumsArray,setAlbumsArray}) {
     const [currentAlbumNumber,setCurrentAlbumNumber] = useState(1);
     const [openSearch,setOpenSearch] = useState(false);
     const [specifiedAlbum,setSpecifiedAlbum] = useState(new AlbumClass())
@@ -15,10 +16,12 @@ export default function AlbumLayoutComponent({theme,albumsArray,setAlbumsArray})
       console.log('changed')
       let mainLayout = document.getElementById('main-layout')
       if (albumsArray[currentAlbumNumber-1]) {
+        let backgroundColor = albumsArray[currentAlbumNumber-1].backgroundColor;
         const currAlbum = document.getElementById(`album-${currentAlbumNumber}`);
         currAlbum.style.transform = `matrix(1,0,0,1,0,0) skew (0,0)`
-        mainLayout.style.backgroundColor = albumsArray[currentAlbumNumber-1].backgroundColor ? albumsArray[currentAlbumNumber-1].backgroundColor : theme.background
+        mainLayout.style.backgroundColor = backgroundColor ? backgroundColor : theme.background
         mainLayout.style.transition = 'linear background-color 1s'
+        backgroundColor ? setTheme(checkHexCode(backgroundColor)) : null
       } else {
         mainLayout.style.backgroundColor = theme.background
       }

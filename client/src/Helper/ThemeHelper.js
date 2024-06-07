@@ -1,6 +1,7 @@
 import { darkTheme, lightTheme } from "../Styles/Themes";
 
 export const LIGHT_THEME = "LIGHT_THEME"; export const DARK_THEME = "DARK_THEME";
+export const DARK_LOGO_IMAGE = "https://rchrdlss3.github.io/InnovativeRichLogo/darkLogo.png" ; export const LIGHT_LOGO_IMAGE = "https://rchrdlss3.github.io/InnovativeRichLogo/lightLogo.png"
 
 export const checkTheme = () => {
     const currentTheme = localStorage.getItem("THEME")
